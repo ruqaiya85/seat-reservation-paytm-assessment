@@ -82,17 +82,15 @@ app.use(errorHandler);
 let server: any = null;
 
 async function startServer() {
+  server = app.listen(config.port, '0.0.0.0', () => {
+    logger.info({ port: config.port }, `Seat Reservation Service running on port ${config.port}`);
+  });
+
   try {
     await initDb();
-    server = app.listen(config.port, '0.0.0.0', () => {
-      logger.info({ port: config.port }, `Seat Reservation Service running on port ${config.port}`);
-    });
+    logger.info('Database initialized and ready');
   } catch (err: any) {
-    logger.error({ err: err.message }, 'Failed to initialize server');
-    // Still start server so readiness probe can report 503 and Docker doesn't loop crash
-    server = app.listen(config.port, '0.0.0.0', () => {
-      logger.warn({ port: config.port }, `Service running in degraded mode on port ${config.port}`);
-    });
+    logger.warn({ err: err.message }, 'Database unreachable on startup; readiness probe will fail-closed (503) until connected');
   }
 }
 
@@ -113,8 +111,6 @@ const shutdown = async (signal: string) => {
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
 
-if (require.main === module) {
-  startServer();
-}
+startServer();
 
 export { app, startServer };
