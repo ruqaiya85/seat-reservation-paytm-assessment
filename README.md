@@ -54,7 +54,7 @@ npm run build:client
 npm run dev
 
 # Run concurrency stress test (burst test):
-npm run burst -- http://localhost:3000
+Example : npm run burst -- http://localhost:3000 
 
 ```
 
