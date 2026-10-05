@@ -25,11 +25,10 @@ export const ReconciliationBadge: React.FC<Props> = ({ show }) => {
         </div>
 
         <div
-          className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center space-x-1.5 ${
-            isConsistent
+          className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center space-x-1.5 ${isConsistent
               ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800'
               : 'bg-rose-950/80 text-rose-400 border border-rose-800 animate-pulse'
-          }`}
+            }`}
         >
           <span>{isConsistent ? 'PASS: Invariant Holds' : 'FAIL: Discrepancy Detected'}</span>
         </div>
@@ -54,12 +53,12 @@ export const ReconciliationBadge: React.FC<Props> = ({ show }) => {
         </div>
       </div>
 
-      <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+      {/* <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-mono">
         <span>Formula: available + held + confirmed == total_seats</span>
         <span className={isConsistent ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
           {show.available_seats} + {show.held_seats} + {show.confirmed_seats} = {sum} / {show.total_seats}
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };

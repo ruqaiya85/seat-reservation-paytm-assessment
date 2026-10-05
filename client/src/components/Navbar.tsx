@@ -13,11 +13,11 @@ export const Navbar: React.FC<NavbarProps> = ({ dbStatus, onRefresh, openCreateM
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-            <span className="font-extrabold text-white text-lg tracking-wider">PM</span>
+            <span className="font-extrabold text-white text-lg tracking-wider">SR</span>
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="font-bold text-white text-lg tracking-tight">Paytm Money</span>
+              <span className="font-bold text-white text-lg tracking-tight">Seat Reservation</span>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800">
                 Scale Engine
               </span>

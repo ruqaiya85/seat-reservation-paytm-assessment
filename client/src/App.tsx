@@ -21,7 +21,7 @@ export function App() {
   const [currentShowId, setCurrentShowId] = useState<string | null>(null);
   const [currentShow, setCurrentShow] = useState<Show | null>(null);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const [userId, setUserId] = useState('user-alice');
+  const [userId, setUserId] = useState('alice');
   const [idempotencyKey, setIdempotencyKey] = useState<string>(() =>
     crypto.randomUUID()
   );

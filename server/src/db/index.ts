@@ -14,7 +14,7 @@ export function getPool(): Pool {
       max: config.dbPoolMax,
       idleTimeoutMillis: config.dbPoolIdleTimeoutMillis,
       connectionTimeoutMillis: config.dbConnectionTimeoutMillis,
-      // For SSL (e.g. Railway or remote cloud Postgres)
+      // For SSL (e.g. or remote cloud Postgres)
       ssl: process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost') && !process.env.DATABASE_URL.includes('127.0.0.1')
         ? { rejectUnauthorized: false }
         : false,
@@ -35,11 +35,20 @@ export async function initDb(): Promise<void> {
     logger.info('Connected to PostgreSQL successfully');
 
     try {
-      const schemaPath = path.join(__dirname, 'schema.sql');
-      if (fs.existsSync(schemaPath)) {
+      const candidatePaths = [
+        path.join(__dirname, 'schema.sql'),
+        path.join(__dirname, '../../src/db/schema.sql'),
+        path.join(__dirname, '../src/db/schema.sql'),
+        path.resolve(process.cwd(), 'server/src/db/schema.sql'),
+        path.resolve(process.cwd(), 'src/db/schema.sql')
+      ];
+      const schemaPath = candidatePaths.find(p => fs.existsSync(p));
+      if (schemaPath) {
         const schemaSql = fs.readFileSync(schemaPath, 'utf8');
         await client.query(schemaSql);
-        logger.info('Database schema verified/created successfully');
+        logger.info({ path: schemaPath }, 'Database schema verified/created successfully');
+      } else {
+        logger.warn('schema.sql file not found; skipping automatic schema run');
       }
     } finally {
       client.release();

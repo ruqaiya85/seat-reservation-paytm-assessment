@@ -9,7 +9,7 @@ interface Props {
   currentBookedCount: number;
 }
 
-const PRESET_USERS = ['user-alice', 'user-bob', 'user-charlie', 'user-david'];
+const PRESET_USERS = ['alice', 'bob', 'charlie', 'david'];
 
 export const UserSwitcher: React.FC<Props> = ({
   userId,
@@ -35,11 +35,10 @@ export const UserSwitcher: React.FC<Props> = ({
             <button
               key={u}
               onClick={() => onChangeUser(u)}
-              className={`px-2.5 py-1 rounded-md text-xs font-medium transition ${
-                isActive
+              className={`px-2.5 py-1 rounded-md text-xs font-medium transition ${isActive
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow'
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
-              }`}
+                }`}
             >
               {u}
             </button>
@@ -63,18 +62,16 @@ export const UserSwitcher: React.FC<Props> = ({
         <div className="flex justify-between text-[11px]">
           <span className="text-slate-400">Current User Allocation</span>
           <span
-            className={`font-mono font-semibold ${
-              currentBookedCount >= perUserLimit ? 'text-amber-400' : 'text-slate-300'
-            }`}
+            className={`font-mono font-semibold ${currentBookedCount >= perUserLimit ? 'text-amber-400' : 'text-slate-300'
+              }`}
           >
             {currentBookedCount} / {perUserLimit} seats
           </span>
         </div>
         <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
           <div
-            className={`h-full transition-all duration-300 ${
-              currentBookedCount >= perUserLimit ? 'bg-amber-500' : 'bg-cyan-500'
-            }`}
+            className={`h-full transition-all duration-300 ${currentBookedCount >= perUserLimit ? 'bg-amber-500' : 'bg-cyan-500'
+              }`}
             style={{
               width: `${Math.min(100, (currentBookedCount / perUserLimit) * 100)}%`,
             }}

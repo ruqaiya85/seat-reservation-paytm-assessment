@@ -43,19 +43,21 @@ We provide an automated burst runner (`./burst.sh` / `npm run burst`) that bomba
 9. **Final Reconciliation Check**: Confirms `available + held + confirmed == total_seats`.
 
 ### How to Run:
-
 ```bash
-# Against local instance:
-./burst.sh http://localhost:3000
+# Start production server (serves frontend + backend together):
+npm start
 
-# Against live Railway deployment:
-./burst.sh https://<YOUR_RAILWAY_APP_URL>
+#client
+npm run build:client
+
+# Run in development mode (with live hot-reload for frontend and backend):
+npm run dev
+
+# Run concurrency stress test (burst test):
+npm run burst -- http://localhost:3000
+
 ```
 
-Or via npm:
-```bash
-npm run burst -- https://<YOUR_RAILWAY_APP_URL>
-```
 
 ---
 
@@ -86,20 +88,6 @@ export PORT=3000
 # 3. Start development servers
 npm run dev
 ```
-
----
-
-## ☁️ Deployment on Railway
-
-This repository is optimized for one-click deployment on Railway:
-1. Push repository to GitHub (`ruqaiya85/seat-reservation-paytm-assessment`).
-2. Log into [Railway.app](https://railway.app/) and create a new project.
-3. Select **"Deploy from GitHub repo"** and choose `seat-reservation-paytm-assessment`.
-4. In Railway, click **"+ New" -> "Database" -> "Add PostgreSQL"**.
-5. In your web service settings, add the environment variable:
-   - `DATABASE_URL` = `${{Postgres.DATABASE_URL}}` (or reference the Postgres plugin)
-6. Railway automatically uses the `Dockerfile` and `railway.json` configuration, running health checks against `/health/ready`.
-7. Once deployed, Railway provides a public live URL (e.g., `https://seat-reservation-production.up.railway.app`).
 
 ---
 
