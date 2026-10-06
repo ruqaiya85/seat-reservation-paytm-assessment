@@ -113,6 +113,12 @@ export async function reserveSeats(input: ReserveInput): Promise<{ status: numbe
     const perUserLimit = show.per_user_limit;
 
     // 3. Check Per-User Limit under concurrency
+    // Acquire a transaction-scoped advisory lock per (show_id, user_id) to serialize quota checks for this specific user
+    await client.query(
+      `SELECT pg_advisory_xact_lock(hashtext('user_quota:' || $1 || ':' || $2))`,
+      [show_id, user_id]
+    );
+
     // Count user's current seats for this show (held or confirmed)
     const userSeatsRes = await client.query(
       `SELECT COUNT(*)::int AS count

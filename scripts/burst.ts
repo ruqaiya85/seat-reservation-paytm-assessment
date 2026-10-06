@@ -115,7 +115,7 @@ function generateSeatList(count: number): string[] {
   const seats: string[] = [];
   let added = 0;
   for (const r of rows) {
-    for (let c = 1; c <= 10; c++) {
+    for (let c = 1; c <= 20; c++) {
       if (added >= count) break;
       seats.push(`${r}${c}`);
       added++;
