@@ -38,6 +38,7 @@ RUN npm --prefix server install --omit=dev
 
 # Copy compiled artifacts from builder
 COPY --from=builder /app/server/dist ./server/dist
+COPY --from=builder /app/client/dist ./server/dist/public
 COPY --from=builder /app/server/src/db/schema.sql ./server/dist/db/schema.sql
 COPY scripts ./scripts
 COPY tsconfig.json ./
