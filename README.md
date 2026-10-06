@@ -65,10 +65,22 @@ npm run build:client
 npm run dev
 
 # Run concurrency stress test (burst test):
-Example : npm run burst -- http://localhost:3000 
+# Local:
+npm run burst -- http://localhost:3000
 
+# Live Railway Deployment:
+npm run burst -- https://seat-reservation-paytm-assessment-production.up.railway.app
 ```
 
+### Results:
+
+* ✅ **Hot-Seat Storm (500 concurrent buyers on A12)**: Exactly 1 winner (201 Created), 499 clean domain declines (409 Conflict), 0 server crashes.
+* ✅ **Idempotency Retries (50 parallel replays)**: 50/50 matched, zero duplicates created.
+* ✅ **Idempotency Key Mismatch**: Clean 409 IDEMPOTENCY_MISMATCH decline.
+* ✅ **Per-User Quota Storm (10 parallel requests, limit=4)**: Exactly 4 won, 6 declined with 409 USER_LIMIT_EXCEEDED.
+* ✅ **Cancellation & Security**: Imposter cancellation rejected with 403 Forbidden, owner release confirmed.
+* ✅ **Reconciliation Invariant**: Available (7) + Held (0) + Confirmed (93) == Total (100) verified.
+* 🏆 **Zero 5xx errors across all 767 concurrent requests!**
 
 ---
 
