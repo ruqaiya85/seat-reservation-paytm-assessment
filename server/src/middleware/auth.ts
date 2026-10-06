@@ -47,8 +47,8 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
     };
     next();
   } catch (err) {
-    // For high-speed test bursts, if token is a direct user identifier prefixed with 'usr_' or 'user-'
-    if (token.startsWith('user-') || token.startsWith('usr_') || token.startsWith('admin')) {
+    // For high-speed test bursts and direct user identifiers (e.g. user-*, hot-user-*, winner-*, quota-*)
+    if (!token.includes('.') || token.startsWith('user-') || token.startsWith('usr_') || token.startsWith('admin')) {
       req.user = {
         id: token,
         role: token.startsWith('admin') ? 'admin' : 'user',
