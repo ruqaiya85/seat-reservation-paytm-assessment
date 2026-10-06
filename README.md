@@ -4,6 +4,17 @@
 
 ---
 
+## 🌐 Live Service URLs
+
+| Resource | URL | Status |
+|---|---|---|
+| **Web Application & UI** | [https://seat-reservation-paytm-assessment-production.up.railway.app](https://seat-reservation-paytm-assessment-production.up.railway.app) | 🟢 Live & Serving React UI |
+| **Health & Readiness Probe** | [https://seat-reservation-paytm-assessment-production.up.railway.app/health/ready](https://seat-reservation-paytm-assessment-production.up.railway.app/health/ready) | 🟢 `{"status":"READY","dependencies":{"database":"HEALTHY"}}` |
+| **Prometheus Metrics** | [https://seat-reservation-paytm-assessment-production.up.railway.app/metrics](https://seat-reservation-paytm-assessment-production.up.railway.app/metrics) | 🟢 Exporting metrics |
+| **Managed PostgreSQL DB** | `postgres.railway.internal:5432` | 🟢 Online with persistent volume |
+
+---
+
 ## ⚡ The Correctness Bar
 
 | Invariant | Guarantee | Mechanism |
